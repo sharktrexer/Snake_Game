@@ -8,7 +8,7 @@ After every 50 points scored, an additional fruit will spawn on the screen, up t
 - __Orange__: Speed Down, snake moves a little slower.
 - __Red__: Grow, snake grows twice as much.
 - __Rainbow__: Party, temporarily gain a big speed boost, double score, and fun effects!
-- - __NOTE__: Fun effects do NOT include flashing colors, simply a color palette swap.
+  - __NOTE__: Fun effects do NOT include flashing colors, simply a color palette swap.
   
 Try to get the highest score possible!
 
@@ -18,10 +18,10 @@ __AND__ pygame [here](https://www.pygame.org/wiki/GettingStarted)
 
 Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a command prompt and change to the directory to wherever the file is located. Then enter "python Mr_Snake_Game.py" to run.
 
-### Example:
-![snake game](https://github.com/user-attachments/assets/2a807b19-7809-418e-a46e-40299cf93799)
+### Screenshots:
+![snake game](https://github.com/user-attachments/assets/fd411cab-6889-4d20-be45-422cc7df95e6)
+![snake rainbow](https://github.com/user-attachments/assets/4243f562-aea2-41a3-987f-e88f1c069c98)
 
 ### Known Bugs:
 - Pressing 2 keys at once can make the snake reverse it's direction, causing non-intended game overs.
 - Sometimes fruits spawn on top of each other on on the snake
-- Snake moves weirdly upon starting the game up

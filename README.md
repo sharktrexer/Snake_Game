@@ -7,6 +7,8 @@ After every 50 points scored, an additional fruit will spawn on the screen, up t
 - __Light Blue__: Speed Up, snake moves faster.
 - __Orange__: Speed Down, snake moves a little slower.
 - __Red__: Grow, snake grows twice as much.
+  
+Try to get the highest score possible!
 
 ### Instructions
 To run you need to download python [here](https://www.python.org/downloads)
@@ -18,4 +20,4 @@ Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a
 ![snake game](https://github.com/user-attachments/assets/2a807b19-7809-418e-a46e-40299cf93799)
 
 ### Known Bugs:
-- Pressing 2 keys at once can make the snake reverse it's direction, causing accidently death at times
+- Pressing 2 keys at once can make the snake reverse it's direction, causing non-intended game overs.

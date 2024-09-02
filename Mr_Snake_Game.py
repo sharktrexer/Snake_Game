@@ -19,8 +19,8 @@ font = pygame.font.SysFont('subscribe',40)
 sub_font= pygame.font.SysFont('subscribe',30)
 
 #Colors
-BLACK = (0,0,0)
-WHITE = (255, 255, 255)
+BLACK = (25,25,25)
+WHITE = (225, 225, 225)
 
 GREEN = (0,255,0)
 CYAN = (0, 255, 255)
@@ -141,7 +141,7 @@ def main():
     #Game time
     clock = pygame.time.Clock()
     
-    snake_pos = [250,70] 
+    snake_pos = [180,70] 
     snake_body = [[200,70], [190,70], [180,70]] #Starting body pieces
     
     direction = 'right' 
@@ -242,10 +242,12 @@ def main():
                 randNum = random.randint(-1,UNIQUE_FRUIT_TYPES)
                 doChooseRandNum = False
                 
+                # Increase speed  later
+                tooEarlyForSpeedInc = fruit_limit < 3 and randNum == 2
                 #Stopping snake from being able to shrink below 3 squares
                 snakeTooSmall = len(snake_body) <= 3 and randNum == 4
-                #Stopping multiple rainbow fruit spawning or spawning when in rainbow mode
-                tooMuchRainbow = (rainbow_mode or aRainbowFruitExists(fruits)) and randNum == 6 and fruit_limit > 2
+                #Stopping multiple rainbow fruit spawning or spawning when in rainbow mode, or spawning too soon
+                tooMuchRainbow = (rainbow_mode or aRainbowFruitExists(fruits)) and randNum == 6 and fruit_limit > 3
                 
                 if snakeTooSmall or tooMuchRainbow: 
                     doChooseRandNum = True

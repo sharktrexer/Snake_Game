@@ -12,7 +12,7 @@ After every 50 points scored, an additional fruit will spawn on the screen, up t
 To run you need to download python [here](https://www.python.org/downloads)
 __AND__ pygame [here](https://www.pygame.org/wiki/GettingStarted)
 
-Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a command prompt and change to the directory to wherever the file is located. Then enter _Mr_Snake_Game.py_ to run.
+Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a command prompt and change to the directory to wherever the file is located. Then enter "python Mr_Snake_Game.py" to run.
 
 ### Example:
 ![snake game](https://github.com/user-attachments/assets/2a807b19-7809-418e-a46e-40299cf93799)

@@ -3,7 +3,7 @@ Main file the game runs off of
 By Ibrahim Sydock
 """
 
-import sys, random, pygame, time
+import sys, random, pygame, time, math
 
 #initialize
 pygame.init()
@@ -12,7 +12,7 @@ pygame.init()
 WIN_X = 800
 WIN_Y = 600
 
-game_name = 'Mr.Snake\'s Insatiable Appetite'
+GAME_NAME = 'Mr.Snake\'s Insatiable Appetite'
 fps = 30
 
 font = pygame.font.SysFont('subscribe',40)
@@ -20,39 +20,51 @@ font = pygame.font.SysFont('subscribe',40)
 MAX_FRUIT = 10
 
 #Colors
-black = (0,0,0)
-green = (0,255,0)
-#Fruit Colors
-light_blue = (49, 232, 223)
-blue = (9, 9, 235)
-pink = (235, 28, 228)
-orange = (235, 33, 63)
-purple = (136, 0, 255)
-red = (235, 73, 28)
+BLACK = (0,0,0)
+WHITE = (255, 255, 255)
+
+GREEN = (0,255,0)
+CYAN = (0, 255, 255)
+BLUE = (0, 0, 255)
+PINK = (235, 28, 228)
+ORANGE = (255, 128, 0)
+VIOLET = (128, 0, 255)
+RED = (255, 0, 0)
+YELLOW = (255, 255, 0)
+
+RAINBOW = [RED, ORANGE, YELLOW, GREEN, CYAN, BLUE, VIOLET]
 
 #game window initialize
 WIN = pygame.display.set_mode((WIN_X,WIN_Y))
 
 #Game caption
-pygame.display.set_caption(game_name)
+pygame.display.set_caption(GAME_NAME)
+
+UNIQUE_FRUIT_TYPES = 6
 
 class Fruit():
     def __init__(self, pos, fType):
         self.pos = pos
         self.fType = fType
-        self.color = purple
+        self.color = VIOLET
+        self.rainIterator = 0.0
         
         if self.fType == 1:
-            self.color = blue
+            self.color = BLUE
         if self.fType == 2:
-            self.color = light_blue
+            self.color = CYAN
         if self.fType == 3:
-            self.color = orange
+            self.color = ORANGE
         if self.fType == 4:
-            self.color = pink
+            self.color = PINK
         if self.fType == 5:
-            self.color = red
-        
+            self.color = RED
+        if self.fType == 6:
+            self.color = "cycle"
+      
+    def getType(self):
+        return self.fType
+      
     #Collision
     def collid(self, snake_pos):
         if pygame.Rect(snake_pos[0],snake_pos[1],10,10).colliderect(pygame.Rect(self.pos[0],self.pos[1],10,10)):
@@ -61,8 +73,17 @@ class Fruit():
     
     #Drawing
     def draw(self):
-        
-        pygame.draw.rect(WIN ,self.color,(self.pos[0],self.pos[1],10,10))
+        # Rainbow cycle
+        if self.color == "cycle":
+            
+            pygame.draw.rect(WIN , RAINBOW[math.floor(self.rainIterator)], (self.pos[0],self.pos[1],10,10))
+            
+            self.rainIterator += 0.26
+            if math.floor(self.rainIterator) >= len(RAINBOW):
+                self.rainIterator = 0
+                
+        else:
+            pygame.draw.rect(WIN ,self.color,(self.pos[0],self.pos[1],10,10))
 
 #MENU
 def main_menu():
@@ -77,7 +98,7 @@ def main_menu():
                 main()
         
         WIN.fill((0,0,0)) #BG
-        main_menu_message = font.render('Press anywhere to start the game' , True , (255,255,255))
+        main_menu_message = font.render('Press anywhere to start the game' , True , WHITE)
         font_pos = main_menu_message.get_rect(center=(WIN_X//2, WIN_Y//2))
         WIN.blit(main_menu_message , font_pos)
         pygame.display.update()
@@ -93,9 +114,9 @@ def game_over(score):
         WIN.fill((0,0,0)) #BG
         
         #showing 'You lost' in red color
-        game_over_message = font.render('You Lost' , True , (255,0,0))
+        game_over_message = font.render('You Lost' , True , RED)
         #showing 'You score was SCORE'
-        game_over_score = font.render(f'Your Score was {score}' , True , (255,255,255))
+        game_over_score = font.render(f'Your Score was {score}' , True , WHITE)
 
         font_pos_message = game_over_message.get_rect(center=(WIN_X//2, WIN_Y//2))
         font_pos_score = game_over_score.get_rect(center=(WIN_X//2, WIN_Y//2+40))
@@ -122,6 +143,7 @@ def main():
     
     direction = 'right' 
     score = 0
+    rainbow_mode = False
 
     #Fruit info
     fruit_ate = False
@@ -130,6 +152,13 @@ def main():
     
     #Snake Stats
     speed_multiplier = 1
+    
+    def aRainbowFruitExists(onScreenFruits):
+        for f in onScreenFruits:
+            if f.getType() == 6:
+                return True
+            
+        return False
 
     #game loop
     while True:
@@ -152,11 +181,12 @@ def main():
         if (keys[pygame.K_a] or keys[pygame.K_LEFT]) and direction != 'right':
                 direction = 'left'        
         
-        WIN.fill(black) #background
+        WIN.fill(BLACK) #background
         
         #Drawing Snake
         for square in snake_body:
-            pygame.draw.rect(WIN ,green, (square[0],square[1],10,10))
+            pygame.draw.rect(WIN ,GREEN, (square[0],square[1],10,10))
+        
         
         #Directions
         if direction == 'right':
@@ -174,17 +204,25 @@ def main():
         #Fruit generator
         i = 0
         while i < fruit_limit and len(fruits) < fruit_limit:
-            if len(snake_body) <= 3: #Stopping snake from being able to shrink below 3 squares
-                #maxRand = 3
-                # OVERIDDEN TODO: find a better way to prevent this
-                maxRand = 5
-            else:
-                maxRand = 5
-            nFruit = Fruit([random.randrange(40,WIN_X-40),random.randrange(40,WIN_Y-40)], random.randint(-1,maxRand))
+            doChooseRandNum = True
+            while doChooseRandNum:
+                randNum = random.randint(5,UNIQUE_FRUIT_TYPES)
+                doChooseRandNum = False
+                
+                #Stopping snake from being able to shrink below 3 squares
+                snakeTooSmall = len(snake_body) <= 3 and randNum == 4
+                #Stopping multiple rainbow fruit spawning or spawning when in rainbow mode
+                tooMuchRainbow = (rainbow_mode or aRainbowFruitExists(fruits)) and randNum == 6
+                
+                if snakeTooSmall or tooMuchRainbow: 
+                    doChooseRandNum = True
+            #end loop
+            
+            nFruit = Fruit([random.randrange(40,WIN_X-40),random.randrange(40,WIN_Y-40)], randNum)
             
             fruits.append(nFruit)
         
-        #Fruit draw
+        #Fruit draw AND effect
         fruit_ate = False
         for f in fruits:
             f.draw()
@@ -204,6 +242,8 @@ def main():
                     snake_body.pop(0)
                 elif f.fType == 5: #Grow Extra   
                     snake_body.append(list(snake_pos))
+                elif f.fType == 6: #RAINBOW 
+                    rainbow_mode = True
                 #print("after: ", len(snake_body))
             
         if fruit_ate == False:
@@ -211,16 +251,17 @@ def main():
         
         #Increasing fruit limit based on score
         if fruit_limit < MAX_FRUIT:
-            fruit_limit = int(score / 50) + 1
+            fruit_limit = int(score / 50) + 10
         
         #Score rendering
-        score_font = font.render(f'{score}' , True , (255,255,255))
+        score_font = font.render(f'{score}' , True , WHITE)
         font_pos = score_font.get_rect(center=(WIN_X//2-40 , 30))
         WIN.blit(score_font , font_pos)
         
         #Update
         pygame.display.update()
         clock.tick(fps)
+        print(pygame.time)
         
         #Body Hit, ignoring starting body elements (Game Over)
         for square in snake_body[:-3]: 

@@ -28,6 +28,7 @@ blue = (9, 9, 235)
 pink = (235, 28, 228)
 orange = (235, 33, 63)
 purple = (136, 0, 255)
+red = (235, 73, 28)
 
 #game window initialize
 WIN = pygame.display.set_mode((WIN_X,WIN_Y))
@@ -40,12 +41,17 @@ class Fruit():
         self.pos = pos
         self.fType = fType
         self.color = purple
-        if self.fType == 0:
-            self.color = pink
+        
         if self.fType == 1:
             self.color = blue
         if self.fType == 2:
             self.color = light_blue
+        if self.fType == 3:
+            self.color = orange
+        if self.fType == 4:
+            self.color = pink
+        if self.fType == 5:
+            self.color = red
         
     #Collision
     def collid(self, snake_pos):
@@ -154,13 +160,13 @@ def main():
         
         #Directions
         if direction == 'right':
-            snake_pos[0] += 5 * speed_multiplier
+            snake_pos[0] += 10 * speed_multiplier
         elif direction == 'left':
-            snake_pos[0] -= 5 * speed_multiplier
+            snake_pos[0] -= 10 * speed_multiplier
         elif direction == 'up':
-            snake_pos[1] -= 5 * speed_multiplier
+            snake_pos[1] -= 10 * speed_multiplier
         elif direction == 'down':
-            snake_pos[1] += 5 * speed_multiplier
+            snake_pos[1] += 10 * speed_multiplier
         
         #Body adding
         snake_body.append(list(snake_pos))
@@ -169,11 +175,13 @@ def main():
         i = 0
         while i < fruit_limit and len(fruits) < fruit_limit:
             if len(snake_body) <= 3: #Stopping snake from being able to shrink below 3 squares
-                maxRand = 3
+                #maxRand = 3
+                # OVERIDDEN TODO: find a better way to prevent this
+                maxRand = 5
             else:
-                maxRand = 4
-            nFruit = Fruit([random.randrange(40,WIN_X-40),random.randrange(40,WIN_Y-40)], random.randint(0,maxRand))
-            print ('Type: ', nFruit.__dict__)
+                maxRand = 5
+            nFruit = Fruit([random.randrange(40,WIN_X-40),random.randrange(40,WIN_Y-40)], random.randint(-1,maxRand))
+            
             fruits.append(nFruit)
         
         #Fruit draw
@@ -181,15 +189,22 @@ def main():
         for f in fruits:
             f.draw()
             if pygame.Rect(snake_pos[0],snake_pos[1],10,10).colliderect(pygame.Rect(f.pos[0],f.pos[1],10,10)):
+                #print("before: ", len(snake_body))
                 score += 5
                 fruits.remove(f)
                 fruit_ate = True
                 if f.fType == 1: #Double Score                  
                     score += 5
                 elif f.fType == 2: #Speed Up
-                    speed_multiplier += 0.1
+                    speed_multiplier += 0.05
+                elif f.fType == 3: #Speed Down
+                    speed_multiplier -= 0.025
                 elif f.fType == 4: #Shrink
                     snake_body.pop(0)
+                    snake_body.pop(0)
+                elif f.fType == 5: #Grow Extra   
+                    snake_body.append(list(snake_pos))
+                #print("after: ", len(snake_body))
             
         if fruit_ate == False:
             snake_body.pop(0) #Body shrink for movement        

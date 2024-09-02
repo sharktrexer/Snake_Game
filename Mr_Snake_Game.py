@@ -243,7 +243,9 @@ def main():
                 elif f.fType == 5: #Grow Extra   
                     snake_body.append(list(snake_pos))
                 elif f.fType == 6: #RAINBOW 
-                    rainbow_mode = True
+                    #rainbow_mode = True
+                    # temp functionality
+                    score += 50
                 #print("after: ", len(snake_body))
             
         if fruit_ate == False:

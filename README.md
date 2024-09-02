@@ -24,4 +24,4 @@ Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a
 
 ### Known Bugs:
 - Pressing 2 keys at once can make the snake reverse it's direction, causing non-intended game overs.
-- Sometimes fruits spawn on top of each other on on the snake
+- Sometimes fruits spawn on top of each other or on the snake

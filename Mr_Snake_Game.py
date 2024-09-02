@@ -247,9 +247,9 @@ def main():
                 #Stopping snake from being able to shrink below 3 squares
                 snakeTooSmall = len(snake_body) <= 3 and randNum == 4
                 #Stopping multiple rainbow fruit spawning or spawning when in rainbow mode, or spawning too soon
-                tooMuchRainbow = (rainbow_mode or aRainbowFruitExists(fruits)) and randNum == 6 and fruit_limit > 3
+                tooMuchRainbow = (rainbow_mode or aRainbowFruitExists(fruits) or fruit_limit < 3) and randNum == 6
                 
-                if snakeTooSmall or tooMuchRainbow: 
+                if snakeTooSmall or tooMuchRainbow or tooEarlyForSpeedInc: 
                     doChooseRandNum = True
             #end loop
             

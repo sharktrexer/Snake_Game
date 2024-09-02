@@ -123,7 +123,7 @@ def game_over(score):
         #showing 'You lost' in red color
         game_over_message = font.render('GAME OVER' , True , RED)
         game_over_score = sub_font.render(f'Your Score was {score}' , True , WHITE)
-        continue_message = sub_font.render('Press anything to try again!' , True , CYAN)
+        continue_message = sub_font.render('Click in the window to try again!' , True , CYAN)
 
         font_pos_message = game_over_message.get_rect(center=(WIN_X//2, WIN_Y//2))
         font_pos_score = game_over_score.get_rect(center=(WIN_X//2, WIN_Y//2-50))

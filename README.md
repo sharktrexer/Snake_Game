@@ -4,9 +4,10 @@ After every 50 points scored, an additional fruit will spawn on the screen, up t
 - __Purple__: Basic, no special effect.
 - __Blue__: Double Score, worth double points.
 - __Pink__: Shrink, snake becomes 1 square smaller.
-- __Light Blue__: Speed Up, snake moves faster.
+- __Cyan__: Speed Up, snake moves faster.
 - __Orange__: Speed Down, snake moves a little slower.
 - __Red__: Grow, snake grows twice as much.
+- __Rainbow__: Party, temporarily gain a score modifier and fun visual effects (currently just gives a big score bonus).
   
 Try to get the highest score possible!
 

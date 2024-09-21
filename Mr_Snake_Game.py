@@ -1,12 +1,21 @@
 """
-Main file the game runs off of
-By Ibrahim Sydock
+All logic required for the game to run lies here.
+
+Programming by Ibrahim Sydock
+
+>I pledge that I have NOT used any generative AI for any program components included here.
 """
 
-import sys, random, pygame, time, math
+import sys, random, pygame, time, math, ctypes
 
 #initialize
 pygame.init()
+
+#Setting Custom Icon
+myappid = 'Sydock.Snake_Game.2024' 
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+icon = pygame.image.load('snake.ico') # Copyright Free Icon from https://www.flaticon.com/free-icons/snake
+pygame.display.set_icon(icon)
 
 #screen width and height in pixels
 WIN_X = 800
@@ -15,6 +24,7 @@ WIN_Y = 600
 GAME_NAME = 'Mr.Snake\'s Insatiable Appetite'
 fps = 30
 
+# Fonts
 font = pygame.font.SysFont('subscribe',40)
 sub_font= pygame.font.SysFont('subscribe',30)
 

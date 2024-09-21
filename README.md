@@ -20,7 +20,8 @@ Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a
 
 ### Screenshots:
 ![snake game](https://github.com/user-attachments/assets/fd411cab-6889-4d20-be45-422cc7df95e6)
-![snake rainbow](https://github.com/user-attachments/assets/4243f562-aea2-41a3-987f-e88f1c069c98)
+![rainbowsnake](https://github.com/user-attachments/assets/bc3cbcc2-b5c9-440f-b79e-a98becaa9abc)
+
 
 ### Known Bugs:
 - Pressing 2 keys at once can make the snake reverse it's direction, causing non-intended game overs.

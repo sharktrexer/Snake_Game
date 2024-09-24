@@ -13,10 +13,14 @@ After every 50 points scored, an additional fruit will spawn on the screen, up t
 Try to get the highest score possible!
 
 ### Instructions
-To run you need to download python [here](https://www.python.org/downloads)
+1. To run you need to download python [here](https://www.python.org/downloads)
 __AND__ pygame [here](https://www.pygame.org/wiki/GettingStarted)
 
-Download _Mr_Snake_Game.py_ and place in an approriate folder. Once done, open a command prompt and change to the directory to wherever the file is located. Then enter "python Mr_Snake_Game.py" to run.
+2. Download _Mr_Snake_Game.py_ and snake.ico and place in an approriate folder.
+3. Open a command prompt and change to the directory of the folder.
+4. Use this command to start the game:
+   
+    `python Mr_Snake_Game.py`
 
 ### Screenshots:
 ![snake game](https://github.com/user-attachments/assets/fd411cab-6889-4d20-be45-422cc7df95e6)
